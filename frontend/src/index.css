@@ -37,3 +37,14 @@ code {
 ::-webkit-scrollbar-thumb:hover {
   background: #555;
 }
+
+html, body, #root {
+  height: 100%;
+}
+
+#root {
+  width: 100%;
+  max-width: none !important;
+  padding: 0 !important;
+  text-align: initial !important;
+}

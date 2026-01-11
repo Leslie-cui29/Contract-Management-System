@@ -31,50 +31,50 @@ export default function MainLayout() {
     navigate('/login');
   };
 
+  const userInitial = (user?.full_name?.trim()?.charAt(0) || 'U').toUpperCase();
+
   return (
     <div className="flex flex-col h-screen overflow-hidden bg-gray-50">
-      {/* 顶部栏 - 固定在最顶部 */}
-      <header className="flex-shrink-0 bg-white border-b border-gray-200 h-16 z-50">
-        <div className="flex items-center justify-between h-full px-6">
-          {/* 左侧 Logo */}
-          <div className="flex items-center space-x-3">
-            <div className="w-10 h-10 bg-blue-600 rounded-lg flex items-center justify-center">
-              <span className="text-white font-bold text-xl">CM</span>
+      {/* 统一的渐变顶部栏（全站一层） */}
+      <header className="flex-shrink-0 h-16 bg-gradient-to-r from-blue-600 to-purple-600 text-white shadow-sm">
+        <div className="h-full px-6 flex items-center justify-between">
+          {/* Brand */}
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 rounded-lg bg-white/15 flex items-center justify-center">
+              <span className="font-bold text-xl">CM</span>
             </div>
-            <span className="text-xl font-semibold text-gray-900">合同管理系统</span>
+            <div className="leading-tight">
+              <div className="text-lg font-semibold">Contract Manager</div>
+              <div className="text-xs text-white/80 hidden sm:block">合同管理系统</div>
+            </div>
           </div>
 
-          {/* 右侧用户信息 */}
-          <div className="flex items-center space-x-4">
-            <div className="flex items-center space-x-3">
-              {user?.avatar ? (
-                <img 
-                  src={user.avatar} 
-                  alt={user.full_name}
-                  className="w-10 h-10 rounded-full"
-                />
-              ) : (
-                <div className="w-10 h-10 bg-gray-300 rounded-full flex items-center justify-center">
-                  <UserCircleIcon className="w-6 h-6 text-gray-600" />
-                </div>
-              )}
-              <span className="text-sm font-medium text-gray-700">{user?.full_name || '用户'}</span>
+          {/* User */}
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 rounded-full bg-white/15 flex items-center justify-center font-semibold">
+              {userInitial}
             </div>
+            <div className="hidden md:block leading-tight">
+              <div className="text-sm font-medium">{user?.full_name || '用户'}</div>
+              <div className="text-xs text-white/80">{user?.email || ''}</div>
+            </div>
+
             <button
               onClick={handleLogout}
-              className="p-2 text-gray-500 hover:text-gray-700 hover:bg-gray-100 rounded-lg transition-colors"
+              className="inline-flex items-center gap-2 px-3 py-2 rounded-lg bg-white/15 hover:bg-white/25 transition"
               title="退出登录"
             >
               <ArrowLeftOnRectangleIcon className="w-5 h-5" />
+              <span className="hidden sm:inline text-sm">Logout</span>
             </button>
           </div>
         </div>
       </header>
 
-      {/* 主体区域 - 侧边栏 + 内容 */}
+      {/* 主体：左侧栏 + 内容 */}
       <div className="flex flex-1 overflow-hidden">
-        {/* 左侧边栏 */}
-        <aside 
+        {/* Sidebar */}
+        <aside
           className={`flex-shrink-0 bg-white border-r border-gray-200 transition-all duration-300 overflow-y-auto ${
             sidebarOpen ? 'w-64' : 'w-20'
           }`}
@@ -84,12 +84,12 @@ export default function MainLayout() {
               {menuItems.map((item) => {
                 const Icon = item.icon;
                 const isActive = location.pathname === item.path;
-                
+
                 return (
                   <li key={item.path}>
                     <Link
                       to={item.path}
-                      className={`flex items-center space-x-3 px-4 py-3 rounded-lg transition-colors ${
+                      className={`flex items-center gap-3 px-4 py-3 rounded-lg transition-colors ${
                         isActive
                           ? 'bg-blue-50 text-blue-700 font-medium'
                           : 'text-gray-700 hover:bg-gray-50 hover:text-gray-900'
@@ -107,7 +107,7 @@ export default function MainLayout() {
             </ul>
           </nav>
 
-          {/* 侧边栏折叠按钮 */}
+          {/* 折叠按钮 */}
           <div className="px-3 py-4">
             <button
               onClick={() => setSidebarOpen(!sidebarOpen)}
@@ -126,9 +126,9 @@ export default function MainLayout() {
           </div>
         </aside>
 
-        {/* 主内容区 */}
-        <main className="flex-1 overflow-auto bg-gray-50">
-          <div className="p-8">
+        {/* Content */}
+        <main className="flex-1 overflow-auto">
+          <div className="p-6 lg:p-8">
             <Outlet />
           </div>
         </main>
