@@ -1,73 +1,125 @@
-# React + TypeScript + Vite
+# 合同管理系统 - 前端优化版本
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## 主要改进
 
-Currently, two official plugins are available:
+### 1. **架构优化**
+- ✅ 使用 Context API 统一管理认证状态
+- ✅ 引入 TypeScript 类型定义，提高代码可维护性
+- ✅ 组件化设计，提高代码复用性
+- ✅ 统一的布局组件（MainLayout）
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+### 2. **UI/UX 优化**
+- ✅ 使用 Tailwind CSS 4 实现现代化设计
+- ✅ 引入 Heroicons 图标库
+- ✅ 响应式设计，支持多种屏幕尺寸
+- ✅ 优化的交互反馈（加载状态、错误提示等）
+- ✅ 美观的登录页面设计
+- ✅ 统一的顶部栏和侧边栏
 
-## React Compiler
+### 3. **功能实现**
+- ✅ 登录页面 - 完整的表单验证和错误处理
+- ✅ Dashboard - 数据可视化和统计展示
+- ✅ 合同上传 - 拖拽上传功能和进度显示
+- ✅ AI 助手 - ChatGPT 风格的对话界面
+- ✅ 合同检索 - 搜索和筛选功能
+- ✅ 路由保护 - 未登录自动跳转
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+### 4. **代码质量**
+- ✅ 统一的错误处理
+- ✅ API 请求封装和拦截器
+- ✅ 清晰的目录结构
+- ✅ TypeScript 类型安全
 
-## Expanding the ESLint configuration
+## 项目结构
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```
+src/
+├── components/         # 公共组件
+│   └── MainLayout.tsx # 主布局组件
+├── context/           # 上下文
+│   └── AuthContext.tsx
+├── pages/             # 页面组件
+│   ├── Login.tsx
+│   ├── Dashboard.tsx
+│   ├── ContractUpload.tsx
+│   ├── AIAssistant.tsx
+│   └── ContractSearch.tsx
+├── services/          # API 服务
+│   └── api.ts
+├── types/             # TypeScript 类型定义
+│   └── index.ts
+├── App.tsx            # 主应用组件
+├── main.tsx           # 入口文件
+└── index.css          # 全局样式
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## 安装和运行
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+```bash
+# 安装依赖
+npm install
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+# 启动开发服务器
+npm run dev
+
+# 构建生产版本
+npm run build
 ```
+
+## 需要完成的功能
+
+### 高优先级
+1. **合同对比功能** - 左右分栏对比界面，高亮显示差异
+2. **合同编辑器** - 支持条款修改和版本控制
+3. **文件查看器** - PDF/Word 文档在线预览
+4. **项目管理** - 项目创建、编辑、合同分类
+
+### 中优先级
+5. **个人账户页面** - 用户信息编辑
+6. **设置页面** - 系统设置和偏好配置
+7. **通知系统** - 合同到期提醒等
+8. **权限管理** - 不同角色的访问控制
+
+### 低优先级
+9. **数据导出** - 报表生成和导出
+10. **搜索优化** - 全文搜索和智能推荐
+11. **协作功能** - 多人评论和审批流程
+
+## 技术栈
+
+- **React 19** - UI 框架
+- **TypeScript** - 类型安全
+- **React Router 7** - 路由管理
+- **Tailwind CSS 4** - 样式框架
+- **Axios** - HTTP 客户端
+- **Heroicons** - 图标库
+- **Vite** - 构建工具
+
+## 建议的后续优化
+
+1. **性能优化**
+   - 实现虚拟滚动处理大量合同列表
+   - 使用 React.memo 优化组件渲染
+   - 图片懒加载
+
+2. **体验优化**
+   - 添加页面过渡动画
+   - 实现骨架屏加载效果
+   - 优化移动端体验
+
+3. **功能增强**
+   - 实现文档在线编辑
+   - 添加批量操作功能
+   - 实现高级搜索和过滤
+
+4. **代码优化**
+   - 提取更多公共组件
+   - 实现自定义 hooks
+   - 添加单元测试
+
+## 注意事项
+
+- 确保后端 API 已经启动并运行在 `http://localhost:8000`
+- 所有的 API 请求都会通过 Vite 代理转发到后端
+- Token 存储在 localStorage 中，注意安全性
+- 生产环境需要配置正确的 API 地址
