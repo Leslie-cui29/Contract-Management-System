@@ -35,52 +35,52 @@ export default function MainLayout() {
 
   return (
     <div className="flex flex-col h-screen overflow-hidden bg-gray-50">
-      {/* 统一的渐变顶部栏（全站一层） */}
-      <header className="flex-shrink-0 h-16 bg-gradient-to-r from-blue-600 to-purple-600 text-white shadow-sm">
-        <div className="h-full px-6 flex items-center justify-between">
+      {/* Header - 关键修复：移除所有冲突的padding */}
+      <header className="flex-shrink-0 bg-gradient-to-r from-blue-600 to-purple-600 text-white shadow-lg">
+        <div className="h-20 px-8 flex items-center justify-between">
           {/* Brand */}
-          <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-lg bg-white/15 flex items-center justify-center">
-              <span className="font-bold text-xl">CM</span>
+          <div className="flex items-center gap-4">
+            <div className="w-12 h-12 rounded-xl bg-white/20 flex items-center justify-center backdrop-blur-sm">
+              <span className="font-bold text-2xl">CM</span>
             </div>
-            <div className="leading-tight">
-              <div className="text-lg font-semibold">Contract Manager</div>
-              <div className="text-xs text-white/80 hidden sm:block">合同管理系统</div>
+            <div>
+              <div className="text-xl font-bold">Contract Manager</div>
+              <div className="text-sm text-white/90 hidden sm:block">合同管理系统</div>
             </div>
           </div>
 
-          {/* User */}
-          <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-full bg-white/15 flex items-center justify-center font-semibold">
+          {/* User Info & Logout */}
+          <div className="flex items-center gap-4">
+            <div className="w-11 h-11 rounded-full bg-white/20 flex items-center justify-center font-bold text-lg backdrop-blur-sm">
               {userInitial}
             </div>
-            <div className="hidden md:block leading-tight">
-              <div className="text-sm font-medium">{user?.full_name || '用户'}</div>
-              <div className="text-xs text-white/80">{user?.email || ''}</div>
+            <div className="hidden md:block">
+              <div className="text-sm font-semibold">{user?.full_name || '用户'}</div>
+              <div className="text-xs text-white/90">{user?.email || ''}</div>
             </div>
 
             <button
               onClick={handleLogout}
-              className="inline-flex items-center gap-2 px-3 py-2 rounded-lg bg-white/15 hover:bg-white/25 transition"
+              className="inline-flex items-center gap-2 px-4 py-2.5 rounded-lg bg-white/20 hover:bg-white/30 transition-all backdrop-blur-sm font-medium"
               title="退出登录"
             >
               <ArrowLeftOnRectangleIcon className="w-5 h-5" />
-              <span className="hidden sm:inline text-sm">Logout</span>
+              <span className="hidden sm:inline">Logout</span>
             </button>
           </div>
         </div>
       </header>
 
-      {/* 主体：左侧栏 + 内容 */}
+      {/* Main: Sidebar + Content */}
       <div className="flex flex-1 overflow-hidden">
         {/* Sidebar */}
         <aside
           className={`flex-shrink-0 bg-white border-r border-gray-200 transition-all duration-300 overflow-y-auto ${
-            sidebarOpen ? 'w-64' : 'w-20'
+            sidebarOpen ? 'w-72' : 'w-20'
           }`}
         >
-          <nav className="py-4">
-            <ul className="space-y-1 px-3">
+          <nav className="py-6">
+            <ul className="space-y-2 px-4">
               {menuItems.map((item) => {
                 const Icon = item.icon;
                 const isActive = location.pathname === item.path;
@@ -89,16 +89,16 @@ export default function MainLayout() {
                   <li key={item.path}>
                     <Link
                       to={item.path}
-                      className={`flex items-center gap-3 px-4 py-3 rounded-lg transition-colors ${
+                      className={`flex items-center gap-4 px-4 py-3.5 rounded-xl transition-all ${
                         isActive
-                          ? 'bg-blue-50 text-blue-700 font-medium'
+                          ? 'bg-gradient-to-r from-blue-50 to-purple-50 text-blue-700 font-semibold shadow-sm'
                           : 'text-gray-700 hover:bg-gray-50 hover:text-gray-900'
                       }`}
                       title={item.name}
                     >
-                      <Icon className="w-5 h-5 flex-shrink-0" />
+                      <Icon className="w-6 h-6 flex-shrink-0" />
                       {sidebarOpen && (
-                        <span className="text-sm font-medium whitespace-nowrap">{item.name}</span>
+                        <span className="text-base whitespace-nowrap">{item.name}</span>
                       )}
                     </Link>
                   </li>
@@ -107,11 +107,11 @@ export default function MainLayout() {
             </ul>
           </nav>
 
-          {/* 折叠按钮 */}
-          <div className="px-3 py-4">
+          {/* Toggle Button */}
+          <div className="px-4 py-4 border-t border-gray-200 mt-4">
             <button
               onClick={() => setSidebarOpen(!sidebarOpen)}
-              className="w-full flex items-center justify-center p-2 text-gray-500 hover:text-gray-700 hover:bg-gray-100 rounded-lg transition-colors"
+              className="w-full flex items-center justify-center p-3 text-gray-500 hover:text-gray-700 hover:bg-gray-100 rounded-xl transition-colors"
               title={sidebarOpen ? '收起侧边栏' : '展开侧边栏'}
             >
               <svg
@@ -126,9 +126,9 @@ export default function MainLayout() {
           </div>
         </aside>
 
-        {/* Content */}
+        {/* Main Content - 关键修复：增加padding */}
         <main className="flex-1 overflow-auto">
-          <div className="p-6 lg:p-8">
+          <div className="max-w-7xl mx-auto px-8 py-10 lg:px-12 lg:py-12">
             <Outlet />
           </div>
         </main>
